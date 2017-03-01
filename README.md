@@ -11,6 +11,10 @@ In the Kotlin slack forums, Cedric Beust was bemoaning Kotlin's missed opportuni
 Some property names require frequent lookups to get correct and are seemingly impossible to remember.  Having members exposed to fetch 
 values would allow for convenient autocomplete support removing some of those "burdens."
 
-### Why 'Manhattan'?
+## How is it?
+Using it is as simple as can be.  Need the temporary directory?  Simply call `Manhattan.tempDir()`.  What about the user's home 
+directory?  `Manhattan.userDir()`.  And so on.
+
+#### Why 'Manhattan'?
 Why the name?  Because this project is about the most popular properties.  And where do you find the most popular properties?  Manhattan,
  of course!
