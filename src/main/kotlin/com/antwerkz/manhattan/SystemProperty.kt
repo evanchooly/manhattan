@@ -8,68 +8,44 @@ object SystemProperty {
      * Character that separates components of a file path. This is "/" on UNIX and "\" on Windows.
      */
     fun fileSeparator(): String? = getProperty("file.separator")
-    fun fileSeparator(value: String): String? = setProperty("file.separator", value)
 
     /**
      * Path used to find directories and JAR archives containing class files. Elements of the class path are separated by a
      * platform-specific character specified in the path.separator property.
      */
     fun classPath(): String? = getProperty("java.class.path")
-    fun classPath(value: String): String? = setProperty("java.class.path", value)
 
     /**
      * Installation directory for Java Runtime Environment (JRE)
      */
-    fun javaHome(): String? = getProperty("java.home")
-    fun javaHome(value: String): String? = setProperty("java.home", value)
+    fun home(): String? = getProperty("java.home")
 
-    /**
-     * JRE vendor name
-     */
-    fun javaVendor(): String? = getProperty("java.vendor")
-    fun javaVendor(value: String): String? = setProperty("java.vendor", value)
-
-    /**
-     * JRE vendor URL
-     */
-    fun javaVendorUrl(): String? = getProperty("java.vendor.url")
-    fun javaVendorUrl(value: String): String? = setProperty("java.vendor.url", value)
-
-    /**
-     * JRE version number
-     */
-    fun javaVersion(): String? = getProperty("java.version")
-    fun javaVersion(value: String): String? = setProperty("java.version", value)
+    fun libraryPath(): String? = getProperty("java.library.path")
 
     /**
      * Sequence used by operating system to separate lines in text files
      */
     fun lineSeparator(): String? = getProperty("line.separator")
-    fun lineSeparator(value: String): String? = setProperty("line.separator", value)
 
     /**
      * Operating system architecture
      */
     fun osArch(): String? = getProperty("os.arch")
-    fun osArch(value: String): String? = setProperty("os.arch", value)
 
     /**
      * Operating system name
      */
     fun osName(): String? = getProperty("os.name")
-    fun osName(value: String): String? = setProperty("os.name", value)
 
     /**
      * Operating system version
      */
     fun osVersion(): String? = getProperty("os.version")
-    fun osVersion(value: String): String? = setProperty("os.version", value)
 
     /**
      * Path separator character used in java.class.path
      */
     fun pathSeparator(): String? = getProperty("path.separator")
-    fun pathSeparator(value: String): String? = setProperty("path.separator", value)
 
     /**
      * User working directory
@@ -88,4 +64,37 @@ object SystemProperty {
      */
     fun userName(): String? = getProperty("user.name")
     fun userName(value: String): String? = setProperty("user.name", value)
+
+    fun userCountry(): String? = getProperty("user.country")
+    fun userCountry(value: String): String? = setProperty("user.country", value)
+
+    fun userLanguage(): String? = getProperty("user.language")
+    fun userLanguage(value: String): String? = setProperty("user.language", value)
+
+    fun userTimezone(): String? = getProperty("user.timezone")
+    fun userTimezone(value: String): String? = setProperty("user.timezone", value)
+
+    fun tempDir(): String? = getProperty("java.io.tmpdir")
+    fun tempDir(value: String): String? = setProperty("java.io.tmpdir", value)
+
+    fun runtimeName(): String? = getProperty("java.runtime.name")
+    fun runtimeVersion(): String? = getProperty("java.runtime.version")
+    fun specificationName(): String? = getProperty("java.specification.name")
+    fun specificationVendor(): String? = getProperty("java.specification.vendor")
+    fun specificationVersion(): String? = getProperty("java.specification.version")
+
+    /**
+     * JRE vendor name
+     */
+    fun vendor(): String? = getProperty("java.vendor")
+
+    /**
+     * JRE vendor URL
+     */
+    fun vendorUrl(): String? = getProperty("java.vendor.url")
+
+    /**
+     * JRE version number
+     */
+    fun version(): String? = getProperty("java.version")
 }

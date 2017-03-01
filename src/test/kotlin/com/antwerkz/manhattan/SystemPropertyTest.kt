@@ -3,36 +3,84 @@ package com.antwerkz.manhattan
 import org.testng.Assert
 import org.testng.annotations.Test
 import org.testng.annotations.DataProvider
+import java.lang.System.getProperty
+import java.util.TreeSet
 
 class SystemPropertyTest {
     @DataProvider(name = "properties")
     fun data(): Array<Array<*>> {
         return arrayOf(
-                arrayOf<Any>("file.separator", { SystemProperty.fileSeparator() }, { name: String -> SystemProperty.fileSeparator(name) } ),
-                arrayOf<Any>("java.class.path", { SystemProperty.classPath() }, { name: String -> SystemProperty.classPath(name) } ),
-                arrayOf<Any>("java.home", { SystemProperty.javaHome() }, { name: String -> SystemProperty.javaHome(name) } ),
-                arrayOf<Any>("java.vendor", { SystemProperty.javaVendor() }, { name: String -> SystemProperty.javaVendor(name) } ),
-                arrayOf<Any>("java.vendor.url", { SystemProperty.javaVendorUrl() }, { name: String -> SystemProperty.javaVendorUrl(name) } ),
-                arrayOf<Any>("java.version", { SystemProperty.javaVersion() }, { name: String -> SystemProperty.javaVersion(name) } ),
-                arrayOf<Any>("line.separator", { SystemProperty.lineSeparator() }, { name: String -> SystemProperty.lineSeparator(name) } ),
-                arrayOf<Any>("os.arch", { SystemProperty.osArch() }, { name: String -> SystemProperty.osArch(name) } ),
-                arrayOf<Any>("os.name", { SystemProperty.osName() }, { name: String -> SystemProperty.osName(name) } ),
-                arrayOf<Any>("os.version", { SystemProperty.osVersion() }, { name: String -> SystemProperty.osVersion(name) } ),
-                arrayOf<Any>("path.separator", { SystemProperty.pathSeparator() }, { name: String -> SystemProperty.pathSeparator(name) } ),
-                arrayOf<Any>("user.dir", { SystemProperty.userDir() }, { name: String -> SystemProperty.userDir(name) } ),
-                arrayOf<Any>("user.home", { SystemProperty.userHome() }, { name: String -> SystemProperty.userHome(name) } ),
-                arrayOf<Any>("user.name", { SystemProperty.userName() }, { name: String -> SystemProperty.userName(name) } )
+                arrayOf("file.separator", SystemProperty.fileSeparator()),
+                arrayOf("java.class.path", SystemProperty.classPath()),
+                arrayOf("java.home", SystemProperty.home()),
+                arrayOf("java.vendor", SystemProperty.vendor()),
+                arrayOf("java.vendor.url", SystemProperty.vendorUrl()),
+                arrayOf("java.version", SystemProperty.version()),
+                arrayOf("line.separator", SystemProperty.lineSeparator()),
+                arrayOf("os.arch", SystemProperty.osArch()),
+                arrayOf("os.name", SystemProperty.osName()),
+                arrayOf("os.version", SystemProperty.osVersion()),
+                arrayOf("path.separator", SystemProperty.pathSeparator()),
+                arrayOf("user.country", SystemProperty.userCountry()),
+                arrayOf("user.dir", SystemProperty.userDir()),
+                arrayOf("user.home", SystemProperty.userHome()),
+                arrayOf("user.language", SystemProperty.userLanguage()),
+                arrayOf("user.name", SystemProperty.userName()),
+                arrayOf("user.timezone", SystemProperty.userTimezone()),
+
+                arrayOf("java.io.tmpdir", SystemProperty.tempDir()),
+                arrayOf("java.library.path", SystemProperty.libraryPath()),
+
+                arrayOf("java.runtime.name", SystemProperty.runtimeName()),
+                arrayOf("java.runtime.version", SystemProperty.runtimeVersion()),
+                arrayOf("java.specification.name", SystemProperty.specificationName()),
+                arrayOf("java.specification.vendor", SystemProperty.specificationVendor()),
+                arrayOf("java.specification.version", SystemProperty.specificationVersion())
         )
     }
 
-    @Test(dataProvider = "properties")
-    fun check(property: String, read: () -> String, set: (name: String) -> String) {
-        Assert.assertEquals(read(), System.getProperty(property))
-        val update = property.replace(".", " ")
-        val original = set(update)
+    @Test
+    fun show() {
+        TreeSet(System.getProperties()
+                .keys)
+                .forEach {
+                    println("$it => ${getProperty(it.toString())}")
+                }
+    }
 
-        Assert.assertEquals(read(), update)
-        set(original)
-        Assert.assertEquals(read(), original)
+    @Test(dataProvider = "properties")
+    fun check(property: String, value: String) {
+        Assert.assertEquals(value, System.getProperty(property))
+    }
+
+    @Test
+    fun set() {
+        var original = SystemProperty.userDir("something else")
+        Assert.assertEquals(SystemProperty.userDir(), "something else")
+        SystemProperty.userDir(original!!)
+
+        original = SystemProperty.userHome("something else")
+        Assert.assertEquals(SystemProperty.userHome(), "something else")
+        SystemProperty.userHome(original!!)
+
+        original = SystemProperty.userName("something else")
+        Assert.assertEquals(SystemProperty.userName(), "something else")
+        SystemProperty.userName(original!!)
+
+        original = SystemProperty.userCountry("something else")
+        Assert.assertEquals(SystemProperty.userCountry(), "something else")
+        SystemProperty.userCountry(original!!)
+
+        original = SystemProperty.userLanguage("something else")
+        Assert.assertEquals(SystemProperty.userLanguage(), "something else")
+        SystemProperty.userLanguage(original!!)
+
+        original = SystemProperty.userTimezone("something else")
+        Assert.assertEquals(SystemProperty.userTimezone(), "something else")
+        SystemProperty.userTimezone(original!!)
+
+        original = SystemProperty.tempDir("something else")
+        Assert.assertEquals(SystemProperty.tempDir(), "something else")
+        SystemProperty.tempDir(original!!)
     }
 }
