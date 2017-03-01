@@ -12,8 +12,9 @@ Some property names require frequent lookups to get correct and are seemingly im
 values would allow for convenient autocomplete support removing some of those "burdens."
 
 ## How is it?
-Using it is as simple as can be.  Need the temporary directory?  Simply call `Manhattan.tempDir()`.  What about the user's home 
-directory?  `Manhattan.userDir()`.  And so on.
+Using it is as simple as can be.  Need the temporary directory?  Simply call `SystemProperty.tempDir()`.  What about the user's home 
+directory?  `SystemProperty.userDir()`.  And so on.  For some properties, Manhattan can even be used to set values as well:  
+`SystemProperty.userDir("/some/other/path")`.  These functions can also be imported further reducing any verbosity.
 
 #### Why 'Manhattan'?
 Why the name?  Because this project is about the most popular properties.  And where do you find the most popular properties?  Manhattan,
