@@ -2,55 +2,37 @@ package com.antwerkz.manhattan
 
 import org.testng.Assert
 import org.testng.annotations.Test
-import org.testng.annotations.DataProvider
 import java.lang.System.getProperty
-import java.util.TreeSet
 
 class SystemPropertyTest {
-    @DataProvider(name = "properties")
-    fun data(): Array<Array<*>> {
-        return arrayOf(
-                arrayOf("file.separator", SystemProperty.fileSeparator()),
-                arrayOf("java.class.path", SystemProperty.classPath()),
-                arrayOf("java.home", SystemProperty.home()),
-                arrayOf("java.vendor", SystemProperty.vendor()),
-                arrayOf("java.vendor.url", SystemProperty.vendorUrl()),
-                arrayOf("java.version", SystemProperty.version()),
-                arrayOf("line.separator", SystemProperty.lineSeparator()),
-                arrayOf("os.arch", SystemProperty.osArch()),
-                arrayOf("os.name", SystemProperty.osName()),
-                arrayOf("os.version", SystemProperty.osVersion()),
-                arrayOf("path.separator", SystemProperty.pathSeparator()),
-                arrayOf("user.country", SystemProperty.userCountry()),
-                arrayOf("user.dir", SystemProperty.userDir()),
-                arrayOf("user.home", SystemProperty.userHome()),
-                arrayOf("user.language", SystemProperty.userLanguage()),
-                arrayOf("user.name", SystemProperty.userName()),
-                arrayOf("user.timezone", SystemProperty.userTimezone()),
-
-                arrayOf("java.io.tmpdir", SystemProperty.tempDir()),
-                arrayOf("java.library.path", SystemProperty.libraryPath()),
-
-                arrayOf("java.runtime.name", SystemProperty.runtimeName()),
-                arrayOf("java.runtime.version", SystemProperty.runtimeVersion()),
-                arrayOf("java.specification.name", SystemProperty.specificationName()),
-                arrayOf("java.specification.vendor", SystemProperty.specificationVendor()),
-                arrayOf("java.specification.version", SystemProperty.specificationVersion())
-        )
-    }
-
     @Test
-    fun show() {
-        TreeSet(System.getProperties()
-                .keys)
-                .forEach {
-                    println("$it => ${getProperty(it.toString())}")
-                }
-    }
+    fun check() {
+        Assert.assertEquals(SystemProperty.fileSeparator(), getProperty("file.separator"))
+        Assert.assertEquals(SystemProperty.classPath(), getProperty("java.class.path"))
+        Assert.assertEquals(SystemProperty.home(), getProperty("java.home"))
+        Assert.assertEquals(SystemProperty.vendor(), getProperty("java.vendor"))
+        Assert.assertEquals(SystemProperty.vendorUrl(), getProperty("java.vendor.url"))
+        Assert.assertEquals(SystemProperty.version(), getProperty("java.version"))
+        Assert.assertEquals(SystemProperty.lineSeparator(), getProperty("line.separator"))
+        Assert.assertEquals(SystemProperty.osArch(), getProperty("os.arch"))
+        Assert.assertEquals(SystemProperty.osName(), getProperty("os.name"))
+        Assert.assertEquals(SystemProperty.osVersion(), getProperty("os.version"))
+        Assert.assertEquals(SystemProperty.pathSeparator(), getProperty("path.separator"))
+        Assert.assertEquals(SystemProperty.userCountry(), getProperty("user.country"))
+        Assert.assertEquals(SystemProperty.userDir(), getProperty("user.dir"))
+        Assert.assertEquals(SystemProperty.userHome(), getProperty("user.home"))
+        Assert.assertEquals(SystemProperty.userLanguage(), getProperty("user.language"))
+        Assert.assertEquals(SystemProperty.userName(), getProperty("user.name"))
+        Assert.assertEquals(SystemProperty.userTimezone(), getProperty("user.timezone"))
 
-    @Test(dataProvider = "properties")
-    fun check(property: String, value: String) {
-        Assert.assertEquals(value, System.getProperty(property))
+        Assert.assertEquals(SystemProperty.tempDir(), getProperty("java.io.tmpdir"))
+        Assert.assertEquals(SystemProperty.libraryPath(), getProperty("java.library.path"))
+
+        Assert.assertEquals(SystemProperty.runtimeName(), getProperty("java.runtime.name"))
+        Assert.assertEquals(SystemProperty.runtimeVersion(), getProperty("java.runtime.version"))
+        Assert.assertEquals(SystemProperty.specificationName(), getProperty("java.specification.name"))
+        Assert.assertEquals(SystemProperty.specificationVendor(), getProperty("java.specification.vendor"))
+        Assert.assertEquals(SystemProperty.specificationVersion(), getProperty("java.specification.version"))
     }
 
     @Test
