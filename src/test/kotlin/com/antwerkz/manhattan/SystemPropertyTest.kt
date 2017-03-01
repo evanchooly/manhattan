@@ -8,25 +8,31 @@ class SystemPropertyTest {
     @DataProvider(name = "properties")
     fun data(): Array<Array<*>> {
         return arrayOf(
-                arrayOf("file.separator", SystemProperty.fileSeparator()),
-                arrayOf("java.class.path", SystemProperty.classPath()),
-                arrayOf("java.home", SystemProperty.javaHome()),
-                arrayOf("java.vendor", SystemProperty.javaVendor()),
-                arrayOf("java.vendor.url", SystemProperty.javaVendorUrl()),
-                arrayOf("java.version", SystemProperty.javaVersion()),
-                arrayOf("line.separator", SystemProperty.lineSeparator()),
-                arrayOf("os.arch", SystemProperty.osArch()),
-                arrayOf("os.name", SystemProperty.osName()),
-                arrayOf("os.version", SystemProperty.osVersion()),
-                arrayOf("path.separator", SystemProperty.pathSeparator()),
-                arrayOf("user.dir", SystemProperty.userDir()),
-                arrayOf("user.home", SystemProperty.userHome()),
-                arrayOf("user.name", SystemProperty.userName())
+                arrayOf<Any>("file.separator", { SystemProperty.fileSeparator() }, { name: String -> SystemProperty.fileSeparator(name) } ),
+                arrayOf<Any>("java.class.path", { SystemProperty.classPath() }, { name: String -> SystemProperty.classPath(name) } ),
+                arrayOf<Any>("java.home", { SystemProperty.javaHome() }, { name: String -> SystemProperty.javaHome(name) } ),
+                arrayOf<Any>("java.vendor", { SystemProperty.javaVendor() }, { name: String -> SystemProperty.javaVendor(name) } ),
+                arrayOf<Any>("java.vendor.url", { SystemProperty.javaVendorUrl() }, { name: String -> SystemProperty.javaVendorUrl(name) } ),
+                arrayOf<Any>("java.version", { SystemProperty.javaVersion() }, { name: String -> SystemProperty.javaVersion(name) } ),
+                arrayOf<Any>("line.separator", { SystemProperty.lineSeparator() }, { name: String -> SystemProperty.lineSeparator(name) } ),
+                arrayOf<Any>("os.arch", { SystemProperty.osArch() }, { name: String -> SystemProperty.osArch(name) } ),
+                arrayOf<Any>("os.name", { SystemProperty.osName() }, { name: String -> SystemProperty.osName(name) } ),
+                arrayOf<Any>("os.version", { SystemProperty.osVersion() }, { name: String -> SystemProperty.osVersion(name) } ),
+                arrayOf<Any>("path.separator", { SystemProperty.pathSeparator() }, { name: String -> SystemProperty.pathSeparator(name) } ),
+                arrayOf<Any>("user.dir", { SystemProperty.userDir() }, { name: String -> SystemProperty.userDir(name) } ),
+                arrayOf<Any>("user.home", { SystemProperty.userHome() }, { name: String -> SystemProperty.userHome(name) } ),
+                arrayOf<Any>("user.name", { SystemProperty.userName() }, { name: String -> SystemProperty.userName(name) } )
         )
     }
 
     @Test(dataProvider = "properties")
-    fun compare(property: String, value: String) {
-        Assert.assertEquals(value, System.getProperty(property))
+    fun check(property: String, read: () -> String, set: (name: String) -> String) {
+        Assert.assertEquals(read(), System.getProperty(property))
+        val update = property.replace(".", " ")
+        val original = set(update)
+
+        Assert.assertEquals(read(), update)
+        set(original)
+        Assert.assertEquals(read(), original)
     }
 }
