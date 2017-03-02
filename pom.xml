@@ -11,6 +11,13 @@
     <packaging>jar</packaging>
 
     <name>com.antwerkz.manhattan manhattan</name>
+    <url>https://github.com/evanchooly/manhattan</url>
+
+    <scm>
+        <connection>scm:git:git@github.com:evanchooly/manhattan.git</connection>
+        <developerConnection>scm:git:git@github.com:evanchooly/manhattan.git</developerConnection>
+        <url>git@github.com:evanchooly/manhattan.git</url>
+    </scm>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
