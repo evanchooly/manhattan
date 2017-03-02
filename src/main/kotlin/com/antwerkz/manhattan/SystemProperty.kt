@@ -1,103 +1,98 @@
 package com.antwerkz.manhattan
 
-import java.lang.System.getProperty
-import java.lang.System.setProperty
+import kotlin.properties.ReadWriteProperty
+import kotlin.reflect.KProperty
 
 object SystemProperty {
+    private fun systemProperty(key: String) = object : ReadWriteProperty<Any, String?> {
+        override fun setValue(thisRef: Any, property: KProperty<*>, value: String?) { System.setProperty(key, value) }
+        override fun getValue(thisRef: Any, property: KProperty<*>) = System.getProperty(key)
+    }
+  
     /**
      * Character that separates components of a file path. This is "/" on UNIX and "\" on Windows.
      */
-    @JvmStatic fun fileSeparator(): String? = getProperty("file.separator")
+    @JvmStatic var fileSeparator: String by systemProperty("file.separator")
 
     /**
      * Path used to find directories and JAR archives containing class files. Elements of the class path are separated by a
      * platform-specific character specified in the path.separator property.
      */
-    @JvmStatic fun classPath(): String? = getProperty("java.class.path")
+    @JvmStatic val classPath: String by systemProperty("java.class.path")
 
     /**
      * Installation directory for Java Runtime Environment (JRE)
      */
-    @JvmStatic fun home(): String? = getProperty("java.home")
+    @JvmStatic val home: String? by systemProperty("java.home")
 
-    @JvmStatic fun libraryPath(): String? = getProperty("java.library.path")
+    @JvmStatic val libraryPath: String by systemProperty("java.library.path")
 
     /**
      * Sequence used by operating system to separate lines in text files
      */
-    @JvmStatic fun lineSeparator(): String? = getProperty("line.separator")
+    @JvmStatic val lineSeparator: String by systemProperty("line.separator")
 
     /**
      * Operating system architecture
      */
-    @JvmStatic fun osArch(): String? = getProperty("os.arch")
+    @JvmStatic val osArch: String by systemProperty("os.arch")
 
     /**
      * Operating system name
      */
-    @JvmStatic fun osName(): String? = getProperty("os.name")
+    @JvmStatic val osName: String by systemProperty("os.name")
 
     /**
      * Operating system version
      */
-    @JvmStatic fun osVersion(): String? = getProperty("os.version")
+    @JvmStatic val osVersion: String by systemProperty("os.version")
 
     /**
      * Path separator character used in java.class.path
      */
-    @JvmStatic fun pathSeparator(): String? = getProperty("path.separator")
+    @JvmStatic val pathSeparator: String by systemProperty("path.separator")
 
     /**
      * User working directory
      */
-    @JvmStatic fun userDir(): String? = getProperty("user.dir")
-
-    @JvmStatic fun userDir(value: String): String? = setProperty("user.dir", value)
+    @JvmStatic var userDir: String by systemProperty("user.dir")
 
     /**
      * User home directory
      */
-    @JvmStatic fun userHome(): String? = getProperty("user.home")
-
-    @JvmStatic fun userHome(value: String): String? = setProperty("user.home", value)
+    @JvmStatic var userHome: String by systemProperty("user.home")
 
     /**
      * User account name
      */
-    @JvmStatic fun userName(): String? = getProperty("user.name")
+    @JvmStatic var userName: String by systemProperty("user.name")
 
-    @JvmStatic fun userName(value: String): String? = setProperty("user.name", value)
+    @JvmStatic var userCountry: String by systemProperty("user.country")
 
-    @JvmStatic fun userCountry(): String? = getProperty("user.country")
-    @JvmStatic fun userCountry(value: String): String? = setProperty("user.country", value)
+    @JvmStatic var userLanguage: String by systemProperty("user.language")
 
-    @JvmStatic fun userLanguage(): String? = getProperty("user.language")
-    @JvmStatic fun userLanguage(value: String): String? = setProperty("user.language", value)
+    @JvmStatic var userTimezone: String by systemProperty("user.timezone")
 
-    @JvmStatic fun userTimezone(): String? = getProperty("user.timezone")
-    @JvmStatic fun userTimezone(value: String): String? = setProperty("user.timezone", value)
+    @JvmStatic var tempDir: String by systemProperty("java.io.tmpdir")
 
-    @JvmStatic fun tempDir(): String? = getProperty("java.io.tmpdir")
-    @JvmStatic fun tempDir(value: String): String? = setProperty("java.io.tmpdir", value)
-
-    @JvmStatic fun runtimeName(): String? = getProperty("java.runtime.name")
-    @JvmStatic fun runtimeVersion(): String? = getProperty("java.runtime.version")
-    @JvmStatic fun specificationName(): String? = getProperty("java.specification.name")
-    @JvmStatic fun specificationVendor(): String? = getProperty("java.specification.vendor")
-    @JvmStatic fun specificationVersion(): String? = getProperty("java.specification.version")
+    @JvmStatic val runtimeName: String by systemProperty("java.runtime.name")
+    @JvmStatic val runtimeVersion: String by systemProperty("java.runtime.version")
+    @JvmStatic val specificationName: String by systemProperty("java.specification.name")
+    @JvmStatic val specificationVendor: String by systemProperty("java.specification.vendor")
+    @JvmStatic val specificationVersion: String by systemProperty("java.specification.version")
 
     /**
      * JRE vendor name
      */
-    @JvmStatic fun vendor(): String? = getProperty("java.vendor")
+    @JvmStatic val vendor: String by systemProperty("java.vendor")
 
     /**
      * JRE vendor URL
      */
-    @JvmStatic fun vendorUrl(): String? = getProperty("java.vendor.url")
+    @JvmStatic val vendorUrl: String by systemProperty("java.vendor.url")
 
     /**
      * JRE version number
      */
-    @JvmStatic fun version(): String? = getProperty("java.version")
+    @JvmStatic val version: String by systemProperty("java.version")
 }
