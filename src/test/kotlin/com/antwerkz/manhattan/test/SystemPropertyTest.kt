@@ -1,4 +1,4 @@
-package com.antwerkz.manhattan
+package com.antwerkz.manhattan.test
 
 import com.antwerkz.manhattan.SystemProperty.classPath
 import com.antwerkz.manhattan.SystemProperty.fileSeparator
@@ -81,8 +81,5 @@ class SystemPropertyTest {
 
         tempDir = "something else"
         Assert.assertEquals(tempDir, "something else")
-
-        fileSeparator = "something else"
-        Assert.assertEquals(fileSeparator, "something else")
     }
 }

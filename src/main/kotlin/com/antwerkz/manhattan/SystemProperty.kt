@@ -12,7 +12,7 @@ object SystemProperty {
     /**
      * Character that separates components of a file path. This is "/" on UNIX and "\" on Windows.
      */
-    @JvmStatic var fileSeparator: String by systemProperty("file.separator")
+    @JvmStatic val fileSeparator: String by systemProperty("file.separator")
 
     /**
      * Path used to find directories and JAR archives containing class files. Elements of the class path are separated by a
